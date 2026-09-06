@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E4B7"/>
+      <stop offset="50%" stop-color="#C8A961"/>
+      <stop offset="100%" stop-color="#8A6A27"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#17100C"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#favGold)" stroke-width="1.5" opacity="0.6"/>
+  
+  <g transform="translate(4, 2)">
+    <!-- Roof Peak -->
+    <path d="M 8 28 L 28 8 L 48 28" fill="none" stroke="url(#favGold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Outer Frame -->
+    <path d="M 14 28 L 14 54 L 42 54 L 42 28" fill="none" stroke="url(#favGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Window Grid -->
+    <g transform="translate(30, 41)">
+      <rect x="0" y="0" width="8" height="8" fill="none" stroke="url(#favGold)" stroke-width="1.2"/>
+      <line x1="4" y1="0" x2="4" y2="8" stroke="url(#favGold)" stroke-width="1"/>
+      <line x1="0" y1="4" x2="8" y2="4" stroke="url(#favGold)" stroke-width="1"/>
+    </g>
+
+    <!-- TP Monogram -->
+    <path d="M 18 19 L 36 19 M 27 19 L 27 50 M 27 20 C 37 20, 44 24, 34 35 L 27 35" fill="none" stroke="url(#favGold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
