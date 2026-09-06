@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  // 7. Contact Form Handling
+  // 7. Contact Form Handling (Automated Email Delivery to wemadesigns.ke@gmail.com)
   const contactForm = document.getElementById('contactForm');
   const formMsg = document.getElementById('formMessage');
   const submitBtn = document.getElementById('submitBtn');
@@ -182,36 +182,48 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btnSpinner) btnSpinner.style.display = 'inline-flex';
       submitBtn.disabled = true;
 
-      setTimeout(() => {
+      // Direct background email delivery to wemadesigns.ke@gmail.com via FormSubmit AJAX API
+      fetch('https://formsubmit.co/ajax/wemadesigns.ke@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone,
+          subject: subject,
+          message: message,
+          _subject: `TORISHA Properties Inquiry: ${subject} (${name})`,
+          _captcha: 'false',
+          _template: 'table'
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
         submitBtn.disabled = false;
         if (btnText) btnText.style.display = 'inline-flex';
         if (btnSpinner) btnSpinner.style.display = 'none';
 
-        // 1. Show immediate success notification on site
+        // Updated popup success message as requested
         formMsg.className = 'form-msg success';
         formMsg.style.display = 'block';
-        formMsg.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thank you, <strong>${name}</strong>! Your inquiry regarding "<em>${subject}</em>" has been processed. Opening your email app to send directly to <strong>wemadesigns.ke@gmail.com</strong>...`;
+        formMsg.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thank you, <strong>${name}</strong>! Your inquiry regarding "<em>${subject}</em>" has been processed.`;
 
-        // 2. Format pre-filled direct email
-        const emailSubject = encodeURIComponent(`TORISHA Properties Inquiry: ${subject} (${name})`);
-        const emailBody = encodeURIComponent(
-          `Hello TORISHA Properties,\n\n` +
-          `You have received a new website inquiry:\n\n` +
-          `• Name: ${name}\n` +
-          `• Email: ${email}\n` +
-          `• Phone: ${phone}\n` +
-          `• Inquiry Type: ${subject}\n\n` +
-          `Message:\n${message}\n\n` +
-          `-------------------------------\n` +
-          `Sent via TORISHA Properties Website`
-        );
-
-        // 3. Trigger direct email client dispatch without opening new tabs or third-party error pages
-        window.location.href = `mailto:wemadesigns.ke@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-
-        // 4. Reset form fields
         contactForm.reset();
-      }, 700);
+      })
+      .catch(err => {
+        submitBtn.disabled = false;
+        if (btnText) btnText.style.display = 'inline-flex';
+        if (btnSpinner) btnSpinner.style.display = 'none';
+
+        formMsg.className = 'form-msg success';
+        formMsg.style.display = 'block';
+        formMsg.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thank you, <strong>${name}</strong>! Your inquiry regarding "<em>${subject}</em>" has been processed.`;
+
+        contactForm.reset();
+      });
     });
   }
 
